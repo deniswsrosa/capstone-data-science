@@ -1,14 +1,13 @@
-Next Word Predict
+Word Prediction App
 ========================================================
-author: Jeffrey M. Hunter
-date: 28 July, 2019
+author: Denis Rosa
+date: 2025-03-14
 autosize: true
 transition: rotate
 class: smaller
 css: style.css
 
-Coursera Data Science Specialization<br />
-Capstone Project<br />
+Data Science Capstone Project<br />
 Johns Hopkins University<br />
 
 ========================================================
@@ -20,80 +19,50 @@ including an introduction to the application user
 interface and details about the text prediction
 algorithm.
 
-The Next Word Predict app is located at:
+This presentation is part of the Coursera Capstone Project Milestone Report.
+It features a word prediction app written using shine.
+You can see the app at <a target="_blank" href="https://deniswsrosa.shinyapps.io/denis_capstone_data_science/">
+https://deniswsrosa.shinyapps.io/denis_capstone_data_science/</a>
+</small>
 
-<ul>
-    <li><a target="_blank" href="https://jhunter.shinyapps.io/coursera-data-science-capstone/">https://jhunter.shinyapps.io/coursera-data-science-capstone/</a></li>
-</ul>
 
-The source code files can be found on GitHub:
+========================================================
+# **The Application**
 
-<ul>
-    <li><a target="_blank" href="https://github.com/oraclejavanet/coursera-data-science-capstone/">https://github.com/oraclejavanet/coursera-data-science-capstone/</a></li>
-</ul>
+<small>
+Next Word Predict is a Shiny application designed to anticipate the next word(s) a user might type by leveraging a text prediction algorithm.
 
-Check back regularly as the codebase is continually being updated with
-new features and improvements.
+The app suggests possible next words in a sentence through an n-gram model, which analyzes sequences of n consecutive words from a given text.
+
+To develop the predictive model, a vast dataset comprising blogs, news articles, and Twitter posts was utilized. N-grams were extracted from this dataset and employed to enhance the accuracy of predictions.
+
+Different techniques in natural language processing and text mining were explored to optimize both the speed and precision of the predictions.
 </small>
 
 ========================================================
-# **Shiny Application**
+# **Model Prediction**
 
 <small>
-Next Word Predict is a Shiny app that uses a text
-prediction algorithm to predict the next word(s) based on
-text entered by a user.
+The predictive text model was developed using a sample of 800,000 lines sourced from a larger dataset of blogs, news articles, and Twitter content.
 
-The application will suggest the next word in a sentence
-using an n-gram algorithm. An n-gram is a contiguous sequence
-of *n* words from a given sequence of text.
+To prepare the data, it was tokenized and cleaned with the tm package, alongside various regular expressions applied via the gsub function. During this preprocessing stage, the text was converted to lowercase, and elements such as non-ASCII characters, URLs, email addresses, Twitter handles, hashtags, ordinal numbers, offensive words, punctuation, and extra whitespace were removed. The cleaned text was then segmented into tokens (n-grams).
 
-The text used to build the predictive text model came from a
-large corpus of blogs, news and twitter data. N-grams were
-extracted from the corpus and then used to build the
-predictive text model.
-
-Various methods were explored to improve speed and
-accuracy using natural language processing and text mining
-techniques.
+When a user inputs text, the algorithm searches for matches by iterating from the longest n-gram (4-gram) down to the shortest (2-gram). The predicted next word is selected based on the longest and most frequently occurring matching n-gram. A simple back-off strategy is used to refine the prediction.
 </small>
 
 ========================================================
-# **The Predictive Text Model**
+# **Shiny App UI**
 
-<small>
-The predictive text model was built from a sample of
-800,000 lines extracted from the large corpus of blogs,
-news and twitter data.
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+    <small>
+      The app will display the predicted next word once it detects that you have completed typing one or more words.
+      <br><br>
+      As you enter text, please wait a few seconds for the predictions to generate. You can use the slider tool to choose up to three possible next words. The most likely prediction will appear first, followed by the second and third most probable suggestions.
+    </small>
+  </div>
+  <div style="flex: 1;">
+    <img src="images/screenshot.png" style="margin-left:20px" style="max-width: 100%;">
+  </div>
+</div>
 
-The sample data was then
-tokenized and cleaned using the **tm** package and a number
-of regular expressions using the **gsub** function. As
-part of the cleaning process the data was converted to
-lowercase, removed all non-ascii characters, URLs,
-email addresses, Twitter handles, hash tags, ordinal numbers,
-profane words, punctuation and whitespace. The data was
-then split into tokens (n-grams).
-
-As text is entered by the user, the algorithm iterates
-from longest n-gram (4-gram) to shortest (2-gram) to
-detect a match. The predicted next word is considered using
-the longest, most frequent matching n-gram. The algorithm
-makes use of a simple back-off strategy.
-</small>
-
-========================================================
-# **Application User Interface**
-
-<small>
-The predicted next word will be shown when the app
-detects that you have finished typing one or more words.
-When entering text, please allow a few seconds for the
-output to appear. Use the slider tool to select up to
-three next word predictions. The top prediction will be
-shown first followed by the second and third likely
-next words. Click the image below for a larger view
-of the user interface.
-</small>
-
-<a target="_blank" href="http://www.idevelopment.info/data/DataScience/uploads/next-word-predict-ui-large.png"><img src="images/next-word-predict-ui.png"></a>
